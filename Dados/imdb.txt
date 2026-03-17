@@ -1,0 +1,4 @@
+Meus estudos de R
+Data: 16/03/2026
+Aprender Git foi difícil mas consegui!
+O arquivo imdb.csv foi lido com sucesso.
