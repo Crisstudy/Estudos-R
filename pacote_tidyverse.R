@@ -20,3 +20,21 @@ dados_longer
 # A função pivot_wider retorna o formato 
 dados_wider <- dados_longer %>% pivot_wider(names_from = "Cidades", values_from = "População")
 dados_wider
+
+print(dados_cidades)
+
+# A função separate() separa uma coluna em várias 
+dados <- tibble(Nome = c("João", "Pedro", "Amanda", "Fabiana", "Maria", "Gustavo"), 
+                Altura = c(1.80, 1.77, 1.71, 1.75, 1.66, 1.63), 
+                Nascimento = c("22-03-2998", NA, "18-02-1999", "20-09-1999", "23-01-1999", "19-09-2004"),
+                Sexo = c("masculino", "masculino", "feminino", "masculino", "feminino", "masculino"),
+                Peso = c(78.3, 82.1, NA, 88.1, 58.0, 75.4),
+                Fumante = c(TRUE, FALSE, FALSE, FALSE, NA, FALSE),
+                UF = C("PB", "AL", "PE", "PE", "SP", "CE"),)
+dados_separate <- dados %>% separate(Nascimento, into = c("Dia", "Mes", "Ano"), sep = "-")
+dados_separate
+# Oposto do separate () é o unit()
+dados_unit <- dados_separate %>% unit(Nascimento, Dia, mes, ano, sep= "/")
+dados_unit
+# A função drop_na() exclui dados faltantes
+dados %>% drop_na(Nascimento, Peso, Fumante)
