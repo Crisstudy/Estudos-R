@@ -38,3 +38,60 @@ dados_unit <- dados_separate %>% unit(Nascimento, Dia, mes, ano, sep= "/")
 dados_unit
 # A função drop_na() exclui dados faltantes
 dados %>% drop_na(Nascimento, Peso, Fumante)
+
+print(dados_cidades)
+
+# Datas são criadas com o tipo character
+data_string <- "2015-10-21"
+class(data_string)
+#Convertendo string para data função date()
+data_date <- date(data_string)
+class(data_date)
+data_date
+
+#função dmy() cria data com um formato especifico - ERRO
+data_string <- "21-10-2015"
+data_mdy <- dmy(data_string)
+class(data_mdy)
+data_mdy
+
+#Função ymd_hms classe date
+bday <- ymd_hms("1989-07-29 030142")
+bday
+second(bday)
+day(bday)
+month(bday)
+year(bday)
+wday(bday)
+
+#Função de categoria usando a função as.factor()
+sexo <- c("masculino", "feminino", "feminino", "masculino", "feminino", "masculino")
+fator_sexo <- as.factor(sexo)
+fator_sexo
+
+#Conjunto de dados
+head(gss_cat)
+
+#Visualização da categoria marital
+head(gss_cat$marital)
+
+#After as categoria com as funções fct_recode()
+estado_civil <- fct_recode(gss_cat$marital, solteiro = "Never married", 
+                            separado = "separated", Divorciado = "Divorced",
+                            viuvo = "Widowed", casado = "Married")
+head(estado_civil)
+
+# Junta manualmente as categorias com a função fct_colapse()
+estado_civil2 <- fct_collapse(gss_cat $marital, solteiro = (c("Never Married", "Divorced", "Widowed", "Separated")), casado = ("Married"))
+head(estado_civil2)
+
+#Reordenar a ordem com a função fct_reordenar()
+relig <- gss_cat %>% group_by(relig) %>% sumarize(vhours = mean(tvhours, na.rm = TRUE), n = n())
+ggplot(relig, aes(tvhours, fct_reorder(relig, tvhours))) + geom_point()
+
+#Agrupa as categorias menores com a função fct_lump() 
+#Conta a quantidade de observações em cada categoria em ordem decrescente
+gss_cat %>% count(relig, sort = TRUE) # nolint
+
+#Reordena em 5 categorias
+gss_cat %>% mutate(relig = fct_lump(relig, n = 5)) %>% count(relig, sort = TRUE) # nolint
